@@ -11,7 +11,7 @@ import QMobileUI
 /// A progress bar.
 @IBDesignable
 class ___TABLE___CustomProgressBarDetail: UIView {
-    
+
     @IBInspectable var percent: CGFloat = 0.9
     @IBInspectable var barColor: UIColor = UIColor.blue
     @IBInspectable var bgColor: UIColor = UIColor.clear
@@ -19,11 +19,11 @@ class ___TABLE___CustomProgressBarDetail: UIView {
     @IBInspectable var bgThickness: CGFloat = 20
     @IBInspectable var isHalfBar: Bool = false
     @IBInspectable var oldpercent: CGFloat = 0
-    
+
     var arc = CAShapeLayer()
     let arc2 = CAShapeLayer()
     let nilPercent: CGFloat = -1
-    
+
     @objc dynamic public var graphnumber: NSNumber? {
         get {
             return (percent / 100) as NSNumber
@@ -38,7 +38,7 @@ class ___TABLE___CustomProgressBarDetail: UIView {
             setNeedsDisplay()
         }
     }
-    
+
     override func draw(_ rect: CGRect) {
         let x = self.bounds.midX // swiftlint:disable:this identifier_name
         let y = self.bounds.midY // swiftlint:disable:this identifier_name
@@ -78,7 +78,7 @@ class ___TABLE___CustomProgressBarDetail: UIView {
                       shadowOpacity: 0,
                       shadowOffsset: .zero)
     }
-    
+
     // swiftlint:disable:next function_parameter_count
     func addOval(_ lineWidth: CGFloat,
                  path: CGPath,
@@ -103,7 +103,7 @@ class ___TABLE___CustomProgressBarDetail: UIView {
         arc.lineCap = .round
         layer.addSublayer(arc)
     }
-    
+
     // swiftlint:disable:next function_parameter_count
     func addOval2(_ lineWidth: CGFloat,
                   path: CGPath,
@@ -127,16 +127,16 @@ class ___TABLE___CustomProgressBarDetail: UIView {
         arc2.lineCap = .round
         layer.addSublayer(arc2)
     }
-    
+
     func animateGraph() {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
-        
+
         animation.fromValue = arc.strokeStart
         animation.toValue = arc.strokeEnd
         animation.duration = 1.5
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         arc.add(animation, forKey: "drawLineAnimation")
-        
+
         animation.fromValue = arc2.strokeStart
         animation.toValue = arc2.strokeEnd
         animation.duration = 1.5
@@ -147,14 +147,14 @@ class ___TABLE___CustomProgressBarDetail: UIView {
 
 /// Generated details form for ___TABLE___ table.
 class ___TABLE___DetailsForm: DetailsForm___DETAILFORMTYPE___ {
-    
+
     /// The record displayed in this form
     var record: ___TABLE___ {
         return super.record as! ___TABLE___ // swiftlint:disable:this force_cast
     }
-    
+
     @IBOutlet weak var graphView: ___TABLE___CustomProgressBarDetail!
-    
+
     // MARK: Events
     override func onLoad() {
         // Do any additional setup after loading the view.
@@ -162,26 +162,24 @@ class ___TABLE___DetailsForm: DetailsForm___DETAILFORMTYPE___ {
             self.graphView.animateGraph()
         }
     }
-    
+
     override func onWillAppear(_ animated: Bool) {
         // Called when the view is about to made visible. Default does nothing
         graphView.isHidden = true
     }
-    
+
     override func onDidAppear(_ animated: Bool) {
         // Called when the view has been fully transitioned onto the screen. Default does nothing
         graphView.isHidden = false
         graphView.animateGraph()
     }
-    
+
     override func onWillDisappear(_ animated: Bool) {
         // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
     }
-    
+
     override func onDidDisappear(_ animated: Bool) {
         // Called after the view was dismissed, covered or otherwise hidden. Default does nothing
     }
-    
     // MARK: Custom actions
-    
 }
